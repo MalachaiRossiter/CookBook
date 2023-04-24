@@ -1,4 +1,4 @@
-const Recipe = require('../models/recipe.model');
+const { Recipe } = require('../models');
 
 module.exports.createRecipe = (req, res) => {
     Recipe.create(req.body)
