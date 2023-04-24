@@ -2,14 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const db = require('./models');
-const routes = require('./routes');
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Mount routes
-app.use('/', routes);
+require('./routes/recipes.routes')(app);
+
 
 //connect to the database and start the server
 db.sequelize.sync().then(() => {
