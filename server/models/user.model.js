@@ -1,5 +1,3 @@
-const { sequelize } = require(".");
-
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("User", {
         username: {
@@ -18,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     });
+
+    User.associate = (models) => {
+        User.hasMany(models.Recipe);
+    }
 
     return User;
 }

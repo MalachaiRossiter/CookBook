@@ -23,5 +23,9 @@ module.exports = (sequelize, DataTypes) => {
         },
     });
 
+    Recipe.associate = (models) => {
+        Recipe.belongsTo(models.User);
+    };
+
     return Recipe;
 }
