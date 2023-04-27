@@ -21,13 +21,6 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true,
             },
         },
-        creator: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-            validate: {
-                notEmpty: true,
-            }
-        },
     });
 
     return Recipe;
