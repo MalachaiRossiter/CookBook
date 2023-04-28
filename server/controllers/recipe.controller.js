@@ -26,9 +26,8 @@ module.exports.getById = (req, res) => {
 
 module.exports.updateRecipe = (req, res) => {
     Recipe.update(req.body, {where: {id: req.params.id}})
-    .then(recipe => {
-        console.log(recipe);
-        res.status(200).json({msg: "updated recipe at " + req.params.id});
+    .then(updatedRecipe => {
+        res.status(200).json({msg: "updated recipe at " + updatedRecipe});
     })
     .catch(err => res.status(400).json(err))
 }
