@@ -9,6 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Mount routes
 require('./routes/recipe.route')(app);
+require('./routes/user.routes')(app);
 
 
 //connect to the database and start the server
