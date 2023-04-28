@@ -3,17 +3,20 @@ module.exports = (sequelize, DataTypes) => {
         username: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+            unique: {msg: 'Someone has taken that username already'},
             validate: {
-                len: [5, 25]
+                len: {
+                    args: [5, 25],
+                    msg: 'Username must be between 5 and 25 characters'
+                }
             }
         },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+            unique: {msg: "That email is already in use"},
             validate: {
-                isEmail: true,
+                isEmail: {msg: "This is not an email"},
             }
         },
         password: {
