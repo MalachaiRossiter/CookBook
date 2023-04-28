@@ -35,7 +35,7 @@ module.exports.updateRecipe = (req, res) => {
 module.exports.deleteRecipe = (req, res) => {
     Recipe.destroy({where: {id: req.params.id}})
     .then(recipe => {
-        res.status(200).json({msg: "deleted recipe at " + req.params.id});
+        res.status(200).json({msg: "deleted recipe at " + recipe});
     })
     .catch(err => res.status(400).json(err))
 }

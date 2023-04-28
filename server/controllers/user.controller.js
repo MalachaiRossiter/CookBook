@@ -31,3 +31,11 @@ module.exports.getUser = (req, res) => {
     })
     .catch(err => res.status(400).json(err))
 }
+
+module.exports.deleteUser = (req, res) => {
+    User.destroy({where: {id: req.params.id}})
+    .then(user => {
+        res.status(200).json({msg: "deleted user at " + user});
+    })
+    .catch(err => res.status(400).json(err))
+}
