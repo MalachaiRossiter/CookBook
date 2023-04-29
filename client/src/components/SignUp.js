@@ -16,11 +16,11 @@ const SignUp = (props) => {
         e.preventDefault();
         const newAccount = ({username, email, password, confirmPassword})
         console.log(newAccount);
-        axios.post('http://localhost:8000/api/user', newAccount)
+        axios.post('http://localhost:8000/api/user', newAccount, {withCredentials: true})
         .then(res => {
             console.log(res.data);
             setLoggedIn(true);
-            navigate('/dashboard');
+            navigate('/');
         })
         .catch((err) => {
             console.log(err)

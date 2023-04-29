@@ -4,6 +4,8 @@ const app = express();
 const cookieParser = require('cookie-parser')
 const db = require('./models');
 
+require('dotenv').config();
+
 app.use(cookieParser());
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());

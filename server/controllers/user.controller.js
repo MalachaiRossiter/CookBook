@@ -1,7 +1,6 @@
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const secret = process.env.SECRET_COOKIE;
 
 module.exports.createUser = async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
@@ -20,9 +19,31 @@ module.exports.createUser = async (req, res) => {
         const userToken = jwt.sign(payload, process.env.SECRET_COOKIE);
         res.cookie("usertoken", userToken, {expires: new Date(Date.now() + 9000000), httpOnly: true})
         .json({msg: "cookie obtained!", user: payload})
-        res.status(200).json({message: 'User created sucessfully', user});
     })
     .catch(err => res.status(400).json(err));
+}
+
+//login check
+module.exports.login = async(req, res) => {
+    const user = await User.findOne({where: {email: req.body.email}});
+    console.log('logging in: ' + user.username);
+    try{
+        if(user === null) {
+            return res.status(400).json({errors: [{message:'Invalid password/email'}]});
+        } else {
+            const correctPassword = await bcrypt.compare(req.body.password, user.password);
+            if(!correctPassword){
+                return res.status(400).json({errors: [{message:'Invalid password/email'}]});
+            } else {
+                const payload = {id: user.id, email: user.email, username: user.username}
+                const userToken = jwt.sign(payload, process.env.SECRET_COOKIE);
+                res.cookie("usertoken", userToken, {expires: new Date(Date.now() + 9000000), httpOnly: true})
+                .json({ msg: "cookie obtained!", user: payload});
+            }
+        }   
+    } catch (err) {
+        res.status(400).json({errors: 'oops something went wrong when logging in'})
+    }
 }
 
 module.exports.getAllUsers = (req, res) => {
@@ -48,4 +69,3 @@ module.exports.deleteUser = (req, res) => {
     })
     .catch(err => res.status(400).json(err))
 }
-
