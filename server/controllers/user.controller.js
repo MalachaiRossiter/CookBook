@@ -2,6 +2,8 @@ const { User } = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+//LOGIN AND REGISTRATION USER
+
 module.exports.createUser = async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
 
@@ -11,7 +13,6 @@ module.exports.createUser = async (req, res) => {
 
     //has the password using bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
-
     //Create the user in the database
     User.create({username, email, password: hashedPassword})
     .then(user => {
@@ -45,6 +46,24 @@ module.exports.login = async(req, res) => {
         res.status(400).json({errors: 'oops something went wrong when logging in'})
     }
 }
+
+module.exports.loginCheck = (req, res) => {
+    jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE, (err, payload) => {
+        if (err) { 
+            res.status(401).json({verified: false});
+        } else {
+            res.status(200).json({msg: "logged in"})
+        }
+    });
+}
+
+module.exports.logout = (req, res) => {
+    res.clearCookie('usertoken');
+    console.log("succesffuly logged out");
+    res.sendStatus(200);
+}
+
+// GENERAL USER CRUD BELOW
 
 module.exports.getAllUsers = (req, res) => {
     User.findAll()

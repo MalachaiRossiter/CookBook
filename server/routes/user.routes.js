@@ -9,4 +9,8 @@ module.exports = (app) => {
 
     //logining in and out
     app.post('/api/user/login', UsersController.login);
+    app.post('/api/user/logout', authenticate, UsersController.logout);
+
+    //authentication for React - Check for Cookie
+    app.post('/api/user/loginCheck', UsersController.loginCheck);
 }
