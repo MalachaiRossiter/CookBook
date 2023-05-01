@@ -33,9 +33,9 @@ const Login = (props) => {
     }
 
     return(
-        <div>
+        <div className='container'>
             <form onSubmit={onSubmitHandler}>
-            {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
+                {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
             <label>Email</label>
             <input type='text' onChange={(e) => setEmail(e.target.value)}/>
             <label>Password</label>
