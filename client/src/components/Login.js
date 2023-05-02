@@ -34,14 +34,20 @@ const Login = (props) => {
 
     return(
         <div className='container'>
-            <form onSubmit={onSubmitHandler}>
-                {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
-            <label>Email</label>
-            <input type='text' onChange={(e) => setEmail(e.target.value)}/>
-            <label>Password</label>
-            <input type='text' onChange={(e) => setPassword(e.target.value)}/>
-            <input type="submit" className='submit-btn'/>
-            </form>
+            <div className='row'>
+                <div className='column1/4'>
+                    <form onSubmit={onSubmitHandler}>
+                        {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
+                        <label>Email</label>
+                        <input type='text' onChange={(e) => setEmail(e.target.value)}/>
+                        <label>Password</label>
+                        <input type='text' onChange={(e) => setPassword(e.target.value)}/>
+                        <input type="submit" className='submit-btn'/>
+                    </form>
+                </div>
+                <div className='column3/4'>
+                </div>
+            </div>
         </div>
     )
 }
