@@ -1,12 +1,13 @@
 import axios from 'axios';
 import React, {useState} from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import '../styles/login.css';
 const Login = (props) => {
 
-    const {loggedIn, setLoggedIn} = props;
+    const {setLoggedIn} = props;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
+    const [errors,] = useState([]);
 
     const navigate = useNavigate();
 
@@ -35,17 +36,20 @@ const Login = (props) => {
     return(
         <div className='container'>
             <div className='row'>
-                <div className='column1/4'>
-                    <form onSubmit={onSubmitHandler}>
-                        {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
-                        <label>Email</label>
-                        <input type='text' onChange={(e) => setEmail(e.target.value)}/>
-                        <label>Password</label>
-                        <input type='text' onChange={(e) => setPassword(e.target.value)}/>
-                        <input type="submit" className='submit-btn'/>
-                    </form>
+                <div className='column1-4'>
+                    <div className='form-container'>
+                        <form onSubmit={onSubmitHandler}>
+                            <div className='form-container'>
+                                {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
+                                <input type='text' onChange={(e) => setEmail(e.target.value)} className='form-input'/>
+                                <input type='text' onChange={(e) => setPassword(e.target.value)} className='form-input'/>
+                                <input type="submit" className='submit-btn' value={'Get Cookin!'}/>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div className='column3/4'>
+                <div className='column3-4'>
+                    <div>Banana</div>
                 </div>
             </div>
         </div>

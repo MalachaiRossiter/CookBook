@@ -1,0 +1,30 @@
+body{
+    font-family: 'Lato', sans-serif;
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.row {
+    display: flex;
+}
+
+.column1-4{
+    background-color: #FDEAA6;
+    width: 25%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    border-right: solid 1px #7B4A2F;
+}
+
+.column3-4{
+    background-color: aquamarine;
+    width: 75%;
+    height: 100vh;
+}
+
+.form-container{
+    padding-left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
