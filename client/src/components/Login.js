@@ -41,8 +41,8 @@ const Login = (props) => {
                         <form onSubmit={onSubmitHandler}>
                             <div className='form-container'>
                                 {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
-                                <input type='text' onChange={(e) => setEmail(e.target.value)} className='form-input'/>
-                                <input type='text' onChange={(e) => setPassword(e.target.value)} className='form-input'/>
+                                <input type='text' onChange={(e) => setEmail(e.target.value)} placeholder={"example@email.com"} className='form-input'/>
+                                <input type='password' onChange={(e) => setPassword(e.target.value)} placeholder={"********"} className='form-input'/>
                                 <input type="submit" className='submit-btn' value={'Get Cookin!'}/>
                             </div>
                         </form>

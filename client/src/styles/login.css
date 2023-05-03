@@ -1,6 +1,5 @@
-body{
-    font-family: 'Lato', sans-serif;
-    font-family: 'Nanum Gothic Coding', monospace;
+.container{
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .row {
@@ -27,4 +26,23 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: left;
+}
+
+.form-input{
+    width: 15vw;
+    margin-bottom: 40px;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    border-bottom: solid 5px ;
+}
+
+.submit-btn{
+    padding: 10px 15px;
+    font-family: 'Roboto Condensed';
+    font-size: 24px;
+    font-weight: bold;
+    background-color: #D6B790;
+    border: none;
+    border-radius: 5px;
 }

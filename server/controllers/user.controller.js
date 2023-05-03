@@ -27,11 +27,12 @@ module.exports.createUser = async (req, res) => {
 //login check
 module.exports.login = async(req, res) => {
     const user = await User.findOne({where: {email: req.body.email}});
-    console.log('logging in: ' + user.username);
     try{
         if(user === null) {
+            console.log("user does not exist");
             return res.status(400).json({errors: [{message:'Invalid password/email'}]});
         } else {
+            console.log('logging in: ' + user.username);
             const correctPassword = await bcrypt.compare(req.body.password, user.password);
             if(!correctPassword){
                 return res.status(400).json({errors: [{message:'Invalid password/email'}]});
