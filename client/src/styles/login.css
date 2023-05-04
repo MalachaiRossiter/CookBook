@@ -21,6 +21,10 @@
     height: 100vh;
 }
 
+.sign-up{
+    background-image: url('../images/SignUp.jpg');
+}
+
 .form-container{
     padding-left: 5%;
     display: flex;
@@ -52,8 +56,17 @@
     background-color: #D6B790;
     border: none;
     border-radius: 5px;
+    transition: background-color 0.25s ease;
+}
+
+.submit-btn:hover{
+    background-color: #FDF1C9;
 }
 
 .error{
     color: red;
+}
+
+.label{
+    display: block;
 }

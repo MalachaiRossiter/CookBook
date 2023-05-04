@@ -51,7 +51,6 @@ const Login = (props) => {
                     </div>
                 </div>
                 <div className='column3-4'>
-                    <div>Banana</div>
                 </div>
             </div>
         </div>

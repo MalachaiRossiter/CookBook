@@ -34,18 +34,37 @@ const SignUp = (props) => {
     }
 
     return(
-        <form onSubmit={onSubmitHandler}>
-            {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
-            <label>Username</label>
-            <input type='text' onChange={(e) => setUsername(e.target.value)}/>
-            <label>Email</label>
-            <input type='text' onChange={(e) => setEmail(e.target.value)}/>
-            <label>Password</label>
-            <input type='text' onChange={(e) => setPassword(e.target.value)}/>
-            <label>confirmPassword</label>
-            <input type='text' onChange={(e) => setConfirmPassword(e.target.value)}/>
-            <input type="submit" className='submit-btn'/>
-        </form>
+        <div className='container'>
+        <div className='row'>
+            <div className='column1-4'>
+                <div className='form-container'>
+                        <form onSubmit={onSubmitHandler}>
+                            <h1>Sign Up!</h1>
+                            {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
+                            <div className='input-section'>
+                                <label className='label'>Username</label>
+                                <input type='text' onChange={(e) => setUsername(e.target.value)} className='form-input' placeholder={"Super Noodle Squad"}/>
+                            </div>
+                            <div className='input-section'>
+                                <label className='label'>Email</label>
+                                <input type='text' onChange={(e) => setEmail(e.target.value)} className='form-input' placeholder={"ramen@email.com"}/>
+                            </div>
+                            <div className='input-section'>
+                                <label className='label'>Password</label>
+                                <input type='password' onChange={(e) => setPassword(e.target.value)} className='form-input' placeholder={"********"}/>
+                            </div>
+                            <div className='input-section'>
+                                <label className='label'>confirmPassword</label>
+                                <input type='password' onChange={(e) => setConfirmPassword(e.target.value)} className='form-input' placeholder={"********"}/>
+                            </div>
+                            <input type="submit" className='submit-btn'/>
+                        </form>
+                    </div>
+                </div>
+            <div className='column3-4 sign-up'>
+            </div>
+        </div>
+    </div>
     )
 }
 export default SignUp;
