@@ -7,16 +7,16 @@
 }
 
 .column1-4{
-    background-color: #FDEAA6;
+    background-color: #ffffff;
     width: 25%;
     height: 100vh;
     display: flex;
     align-items: center;
-    border-right: solid 1px #7B4A2F;
 }
 
 .column3-4{
-    background-color: aquamarine;
+    background-image: url('../images/LoginImage.jpg');
+    background-size: cover;
     width: 75%;
     height: 100vh;
 }
@@ -35,6 +35,13 @@
     background-color: rgba(255, 255, 255, 0);
     border: none;
     border-bottom: solid 5px ;
+}
+
+.form-input:focus {
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
 
 .submit-btn{
