@@ -7,7 +7,7 @@ const Login = (props) => {
     const {setLoggedIn} = props;
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errors,] = useState([]);
+    const [errors, setErrors] = useState([]);
 
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const Login = (props) => {
             for (const key of Object.keys(errorResponse)){
                 errorArr.push(errorResponse[key].message)
             }
-            console.log(errors);
+            setErrors(errorArr);
         })
     }
 
