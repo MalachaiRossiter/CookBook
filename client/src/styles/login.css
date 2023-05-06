@@ -32,6 +32,10 @@
     justify-content: left;
 }
 
+.label{
+    display: block;
+}
+
 .form-input{
     width: 15vw;
     margin-bottom: 40px;
@@ -63,10 +67,14 @@
     background-color: #FDF1C9;
 }
 
+.link{
+    display: block;
+    padding-top: 20px;
+    text-decoration: none;
+    color: #111;
+}
+
 .error{
     color: red;
 }
 
-.label{
-    display: block;
-}

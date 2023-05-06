@@ -58,6 +58,7 @@ const SignUp = (props) => {
                                 <input type='password' onChange={(e) => setConfirmPassword(e.target.value)} className='form-input' placeholder={"********"}/>
                             </div>
                             <input type="submit" className='submit-btn'/>
+                            <Link to={"/login"} className='link'>Already a Master Chef?</Link>
                         </form>
                     </div>
                 </div>

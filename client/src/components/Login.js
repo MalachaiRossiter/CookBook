@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../styles/login.css';
 const Login = (props) => {
 
@@ -38,14 +38,14 @@ const Login = (props) => {
             <div className='row'>
                 <div className='column1-4'>
                     <div className='form-container'>
-
                         <form onSubmit={onSubmitHandler}>
                             <div className='form-container'>
                                 <h1>Log In!</h1>
                                 {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
-                                <input type='text' onChange={(e) => setEmail(e.target.value)} placeholder={"example@email.com"} className='form-input'/>
+                                <input type='text' onChange={(e) => setEmail(e.target.value)} placeholder={"SpicyChief@email.com"} className='form-input'/>
                                 <input type='password' onChange={(e) => setPassword(e.target.value)} placeholder={"********"} className='form-input'/>
                                 <input type="submit" className='submit-btn' value={'Get Cookin!'}/>
+                                <Link to={"/signup"} className='link'>Need An Account?</Link>
                             </div>
                         </form>
                     </div>
