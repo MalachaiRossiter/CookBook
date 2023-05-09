@@ -1,14 +1,20 @@
+module.exports = (sequelize, DataTypes) => {
+    
+    const Favorites = sequelize.define('Favorite', {
+        id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+        },
+    });
 
-const Favorite = sequelize.define('Favorite', {
-    id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-    }
-});
+    Favorites.associate = (models) => {
+        Favorites.belongsTo(models.Recipe);
+        models.Recipe.hasMany(Favorites);
 
-Favorite.belongsTo(Recipe);
-Recipe.hasMany(Favorite);
+        Favorites.belongsTo(models.User);
+        models.User.hasMany(Favorites);
+    };
 
-Favorite.belongsTo(User);
-User.hasMany(Favorite);
+    return Favorites;
+}
