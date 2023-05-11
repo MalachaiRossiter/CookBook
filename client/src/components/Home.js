@@ -21,6 +21,7 @@ const Home = (props) => {
         <div>
             Penis
             <Link onClick={onClickHandler}>Click my mom</Link>
+            <Link to={'/createRecipe'}>create recipe</Link>
         </div>
     )
 }

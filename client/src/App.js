@@ -6,6 +6,7 @@ import Home from './components/Home';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import RecipeForm from './components/RecipeForm';
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/" element={<ProtectedRoute loggedIn={loggedIn}><Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/></ProtectedRoute>} default />
           <Route path={"/login"} element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/signup"} element={<SignUp loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
+          <Route path={"/createRecipe"} element={<ProtectedRoute loggedIn={loggedIn}><RecipeForm/></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>
     </div>
