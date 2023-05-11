@@ -1,8 +1,21 @@
-body {
-    background-image: url('../images/recipeForm.jpg');
-    background-size: cover;
+.container{
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .row {
     display: flex;
+}
+
+.column1-2{
+    width: 50%;
+    height: 100vh;
+}
+
+.background1{
+    background-image: url('../images/recipeform.jpg');
+    background-size: cover;
+}
+
+.background2{
+    background-color: #fff;
 }
