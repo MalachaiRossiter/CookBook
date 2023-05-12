@@ -7,14 +7,14 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: true,
             },
         },
-        instructions: {
+        description: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 notEmpty: true,
             },
         },
-        ingredients: {
+        instructions: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
 
     Recipe.associate = (models) => {
         Recipe.belongsTo(models.User);
+    };
+
+    Recipe.associate = (models) => {
+        Recipe.belongsTo(models.Ingredients);
     };
 
     return Recipe;

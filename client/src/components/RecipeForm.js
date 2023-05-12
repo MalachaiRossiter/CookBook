@@ -28,6 +28,7 @@ const RecipeForm = (props) => {
     const createRecipe = (e) =>{
         e.preventDefault();
         const newRecipe = ({title, description, instructions, ingredients});
+        console.log(newRecipe);
         axios.post('http://localhost:8000/api/recipe', newRecipe, {withCredentials: true}) //make sure this is correct rotue
         .then(res => {
             console.log(res.data);
