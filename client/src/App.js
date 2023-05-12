@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route, } from 'react-router-dom';
 import axios from 'axios';
 
 import Home from './components/Home';
@@ -10,7 +10,7 @@ import RecipeForm from './components/RecipeForm';
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(null);
   useEffect(() => {
     axios.post('http://localhost:8000/api/user/loginCheck', {}, {withCredentials: true})
     .then(res => {
@@ -25,6 +25,10 @@ function App() {
       setLoggedIn(false);
     });
   }, [loggedIn])
+
+  if (loggedIn === null) { // Display a loading screen if loggedIn is null
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="App">
