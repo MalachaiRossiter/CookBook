@@ -1,15 +1,22 @@
-const { Recipe } = require('../models');
+const { Recipe,Ingredients } = require('../models');
 const jwt = require('jsonwebtoken');
 
 module.exports.createRecipe = (req, res) => {
     const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
-    console.log(user);
-    Recipe.create(req.body, {UserId: user})
-    .then(recipe => {
-        res.status(200).json(recipe);
-    })
-    .catch(err => res.status(400).json(err))
-}
+    const {title, description, instructions, ingredients} = req.body;
+    Recipe.create({ title, description, instructions, UserId: user.id })
+        .then(recipe => {
+            const promises = ingredients.map(ingredient => {
+                return Ingredients.create({ ingredient, RecipeId: recipe.id });
+        });
+        Promise.all(promises)
+            .then(() => {
+                res.status(200).json(recipe);
+            })
+            .catch(err => res.status(400).json(err));
+        })
+        .catch(err => res.status(400).json(err));
+};
 
 module.exports.getAllRecipes = (req, res) => {
     Recipe.findAll()

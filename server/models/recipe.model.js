@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     };
 
     Recipe.associate = (models) => {
-        Recipe.belongsTo(models.Ingredients);
+        Recipe.hasMany(models.Ingredients);
     };
 
     return Recipe;
