@@ -34,7 +34,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ProtectedRoute loggedIn={loggedIn}><Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/></ProtectedRoute>} default />
+          <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/login"} element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/signup"} element={<SignUp loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/createRecipe"} element={<ProtectedRoute loggedIn={loggedIn}><RecipeForm/></ProtectedRoute>}/>

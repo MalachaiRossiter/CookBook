@@ -1,0 +1,16 @@
+.navbar{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 20px 20px;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 20px;
+}
+
+.logo{
+    margin-right: auto;
+}
+
+.link-item{
+    padding-left: 10px;
+}
