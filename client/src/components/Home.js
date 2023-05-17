@@ -7,7 +7,12 @@ const Home = (props) => {
     return (
         <div>
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-            Penis
+            <div className='hero'>
+                <form>
+                    <input type='text' className='searchbar'/>
+                    <input type="submit" className='submit-btn'/>
+                </form>
+            </div>
         </div>
     )
 }
