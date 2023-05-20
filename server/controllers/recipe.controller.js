@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 module.exports.createRecipe = (req, res) => {
     const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
+    console.log(req.body);
     const {title, description, instructions, ingredients} = req.body;
     Recipe.create({ title, description, instructions, UserId: user.id })
         .then(recipe => {
