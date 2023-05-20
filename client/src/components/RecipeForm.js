@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/RecipeForm.css';
 
 const RecipeForm = (props) => {
-    const {submitHandler, id} = props;
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [instructions, setInstructions] = useState();
     const [ingredients, setIngredients] = useState([]);
+    const [newIngredient, setNewIngredient] = useState('');
+    const [imageFile, setImageFile] = useState(null);
+
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
-
-    const [newIngredient, setNewIngredient] = useState('');
 
     const handleNewIngredient = () => {
         setIngredients(prevIngredients => [...prevIngredients, newIngredient]);
@@ -27,9 +27,14 @@ const RecipeForm = (props) => {
 
     const createRecipe = (e) =>{
         e.preventDefault();
-        const newRecipe = ({title, description, instructions, ingredients});
-        console.log(newRecipe);
-        axios.post('http://localhost:8000/api/recipe', newRecipe, {withCredentials: true}) //make sure this is correct rotue
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('instructions', instructions);
+        formData.append('ingredients', JSON.stringify(ingredients));
+        formData.append('image', imageFile); // Add the image file to the form data
+        
+        axios.post('http://localhost:8000/api/recipe', formData, {withCredentials: true, headers: {"Content-Type": "multipart/formData"}})  // Set the content type to multipart/form-data for file upload
         .then(res => {
             console.log(res.data);
             navigate('/');
@@ -82,6 +87,10 @@ const RecipeForm = (props) => {
                                 </li>
                                 ))}
                             </ul>
+                        </div>
+                        <div className='input-container'>
+                            <label>Upload an Image</label>
+                            <input type='file' onChange={(e) => setImageFile(e.target.files[0])} className='form-input' accept="image/*" />
                         </div>
                         <input type="submit" className='submit-btn'/>
                     </form>
