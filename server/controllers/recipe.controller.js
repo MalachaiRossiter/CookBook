@@ -1,22 +1,51 @@
 const { Recipe,Ingredients } = require('../models');
 const jwt = require('jsonwebtoken');
+const { v4: uuidv4} = require('uuid');
+const sharp = require('sharp');
+const path = require('path');
+const fs = require('fs');
 
 module.exports.createRecipe = (req, res) => {
     const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
-    console.log(req.body);
     const {title, description, instructions, ingredients} = req.body;
-    Recipe.create({ title, description, instructions, UserId: user.id })
-        .then(recipe => {
-            const promises = ingredients.map(ingredient => {
+
+    // Check if image file is present in the request
+    if (!req.file) {
+        return res.status(400).json({ error: 'Image file is required' });
+    }
+
+    // Check image dimensions
+    sharp(req.file.path)
+        .metadata()
+        .then(metadata => {
+            const { width, height } = metadata;
+            if (width < 700 || height < 400) {
+                // Delete the invalid image file
+                fs.unlinkSync(req.file.path);
+                return res.status(400).json({ error: 'Image dimensions should be at least 700 x 400 pixels' });
+            }
+            // Generate a unique filename
+            const fileName = `${uuidv4()}${path.extname(req.file.originalname)}`;
+            // Move the uploaded image file to the desired directory
+            fs.renameSync(req.file.path, `recipeImages/${fileName}`);
+            // Save the recipe details and the filename in the database
+            Recipe.create({ title, description, instructions, image: fileName, UserId: user.id })
+            .then(recipe => {
+                const promises = ingredients.map(ingredient => {
                 return Ingredients.create({ ingredient, RecipeId: recipe.id });
-        });
-        Promise.all(promises)
+            });
+            Promise.all(promises)
             .then(() => {
                 res.status(200).json(recipe);
             })
             .catch(err => res.status(400).json(err));
         })
         .catch(err => res.status(400).json(err));
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: 'Failed to process the image' });
+    });
 };
 
 module.exports.getAllRecipes = (req, res) => {

@@ -27,19 +27,16 @@ const RecipeForm = (props) => {
 
     const createRecipe = (e) =>{
         e.preventDefault();
-        // const formData = new FormData();
-        // formData.append('title', title);
-        // console.log(formData.title);
-        // formData.append('description', description);
-        // formData.append('instructions', instructions);
-        // formData.append('imageFile', imageFile);
-    
-        // ingredients.forEach((ingredient, index) => {
-        //     formData.append(`ingredients[${index}]`, ingredient);
-        // });
-        const newRecipe = {title, description, instructions, ingredients, imageFile};
-        console.log(newRecipe);
-        axios.post('http://localhost:8000/api/recipe', newRecipe, {withCredentials: true, headers: {"Content-Type": "multipart/form-data"}})
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('instructions', instructions);
+        formData.append('imageFile', imageFile);
+        ingredients.forEach((ingredient, index) => {
+            formData.append(`ingredients[${index}]`, ingredient);
+        });
+        console.log([...formData]);
+        axios.post('http://localhost:8000/api/recipe', formData, {withCredentials: true, headers: {"Content-Type": "multipart/form-data"}})
         .then(res => {
             console.log(res.data);
             navigate('/');
