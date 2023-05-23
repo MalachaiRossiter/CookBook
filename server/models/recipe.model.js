@@ -32,9 +32,6 @@ module.exports = (sequelize, DataTypes) => {
 
     Recipe.associate = (models) => {
         Recipe.belongsTo(models.User);
-    };
-
-    Recipe.associate = (models) => {
         Recipe.hasMany(models.Ingredients);
     };
 
