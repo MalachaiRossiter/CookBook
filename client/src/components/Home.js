@@ -4,6 +4,8 @@ const Home = (props) => {
 
     const {loggedIn, setLoggedIn} = props;
 
+    const onSubmitHandler => ()
+
     return (
         <div>
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
