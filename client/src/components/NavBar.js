@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Link, useNavigate} from 'react-router-dom';
 
-import navbar from '../styles/navbar.css'
+import navbar from '../styles/navbar.css';
 
 const NavBar = (props) => {
     const {loggedIn, setLoggedIn} = props;

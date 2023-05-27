@@ -1,0 +1,35 @@
+.container{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.hero{
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../images/homeBackGround.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.searchbar{
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: 400;
+    border: none;
+    border-radius: 25px 0px 0px 25px;
+}
+
+.searchbar:focus {
+    outline: none;
+}
+
+.search-btn{
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: 400;
+    background-color: #fff;
+    border: none;
+    border-radius: 0px 25px 25px 0px;
+}
