@@ -31,5 +31,17 @@
     font-weight: 400;
     background-color: #fff;
     border: none;
+    border-left: 1px solid #cecece;
     border-radius: 0px 25px 25px 0px;
+}
+
+.search-btn:hover {
+    cursor: pointer;
+}
+
+
+.recipes-container{
+    margin-top:50vh;
+    height: 100vh;
+    background-color: aqua;
 }

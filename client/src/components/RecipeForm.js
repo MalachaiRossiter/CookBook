@@ -25,7 +25,7 @@ const RecipeForm = (props) => {
             prevIngredients.filter((_, index) => index !== indexToRemove));
         };
 
-    const createRecipe = (e) =>{
+    const submitHandler = (e) =>{
         e.preventDefault();
         const formData = new FormData();
         formData.append('title', title);
@@ -58,7 +58,7 @@ const RecipeForm = (props) => {
                 <div className='column1-2 background1'>
                 </div>
                 <div className='column1-2 background2'>
-                    <form onSubmit={createRecipe}>
+                    <form onSubmit={submitHandler}>
                         <h1>Get Creative</h1>
                         {errors.map((err, index) => <p key={index} className="error">{err}</p>)}
                         <div className='input-container'>
