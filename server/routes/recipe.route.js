@@ -33,6 +33,7 @@ const upload = multer({
 module.exports = (app) => {
     app.get('/api/recipe', RecipesController.getAllRecipes);
     app.get('/api/recipe/:id', RecipesController.getById);
+    app.get('/api/recipe/search/:search', RecipesController.getBySearch);
     app.post('/api/recipe', upload.single('imageFile'), RecipesController.createRecipe);
     app.put('/api/recipe/:id', RecipesController.updateRecipe);
     app.delete('/api/recipe/:id', RecipesController.deleteRecipe);

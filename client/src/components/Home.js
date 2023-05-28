@@ -8,9 +8,16 @@ const Home = (props) => {
     const {loggedIn, setLoggedIn} = props;
 
     const [recipeList, setRecipeList] = useState();
+    const [searchText, setSearchText] = useState();
 
     const submitHandler = (e) =>{
         e.preventDefault();
+        axios.get(`http://localhost:8000/api/recipe/search/${searchText}`)
+        .then(res => {
+            setRecipeList(res.data);
+            console.log(recipeList);
+        })
+        .catch((err) => {console.log(err)})
     }
 
     useEffect(() => {
@@ -27,19 +34,20 @@ const Home = (props) => {
         <div className='container'>
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
             <div className='hero'>
-                <form onSubmit="submitHandler">
-                    <input type='text' className='searchbar'/>
+                <form onSubmit={submitHandler}>
+                    <input type='text' className='searchbar' onChange={(e) => {setSearchText(e.target.value)}}/>
                     <input type="submit" className='search-btn' value="Go!"/>
                 </form>
             </div>
             <div className='recipes-container'>
-                {
-                    recipeList && recipeList.map((recipe, index) => (
-                        <div key={index} className=''>
-                            <h2>{recipe.user.username}</h2>
-                        </div>
-                    ))
-                }
+                {recipeList && recipeList.map((recipe, index) => (
+                    <div key={index} className='recipe-card'>
+                        <img src={recipe.image} alt='Recipe' />
+                        <h2>{recipe.title}</h2>
+                        <p>{recipe.description}</p>
+                    <button>View Recipe</button>
+                    </div>
+                ))}
             </div>
         </div>
     )

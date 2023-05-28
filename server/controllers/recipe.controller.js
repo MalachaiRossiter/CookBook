@@ -1,4 +1,4 @@
-const { Recipe, Ingredients, User } = require('../models');
+const { Recipe, Ingredients, User, Sequelize } = require('../models');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4} = require('uuid');
 const sharp = require('sharp');
@@ -51,7 +51,6 @@ module.exports.createRecipe = (req, res) => {
 module.exports.getAllRecipes = (req, res) => {
     Recipe.findAll({
         include: [
-            {model: Ingredients},
             {
                 model: User,
                 attributes: ['username']
@@ -85,6 +84,43 @@ module.exports.getById = (req, res) => {
         res.status(200).json(recipe);
     })
     .catch(err => res.status(400).json(err))
+}
+
+module.exports.getBySearch = (req, res) => {
+    console.log(req.params.search);
+    Recipe.findAll({
+        where: {
+            title: {
+                [Sequelize.Op.like]: `%${req.params.search}%`
+            }
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['username']
+            }
+        ]
+    })
+    .then(recipes => {
+        console.log(recipes);
+        const recipesWithImages = recipes.map(recipe => {
+            const imageUrl = `../recipeImages/${recipe.image}`;
+            return {
+                id: recipe.id,
+                title: recipe.title,
+                description: recipe.description,
+                instructions: recipe.instructions,
+                image: imageUrl,
+                user: recipe.User,
+                ingredients: recipe.Ingredients
+            };
+        });
+        res.status(200).json(recipesWithImages);
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(400).json({error: 'Failed to get Recipes'});
+    });
 }
 
 module.exports.updateRecipe = (req, res) => {
