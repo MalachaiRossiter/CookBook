@@ -25,6 +25,7 @@ const Home = (props) => {
         .then(res => {
             setRecipeList(res.data);
             console.log(recipeList);
+            setSearchText('');
         })
         .catch((err) => {console.log(err)});
     }, []
@@ -35,7 +36,7 @@ const Home = (props) => {
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
             <div className='hero'>
                 <form onSubmit={submitHandler}>
-                    <input type='text' className='searchbar' onChange={(e) => {setSearchText(e.target.value)}}/>
+                    <input type='text' className='searchbar' value={searchText} onChange={(e) => {setSearchText(e.target.value)}}/>
                     <input type="submit" className='search-btn' value="Go!"/>
                 </form>
             </div>
