@@ -59,7 +59,7 @@ module.exports.getAllRecipes = (req, res) => {
     })
     .then(recipes => {
         const recipesWithImages = recipes.map(recipe => {
-            const imageUrl = `../recipeImages/${recipe.image}`;
+            const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
             return {
                 id: recipe.id,
                 title: recipe.title,
