@@ -1,5 +1,7 @@
 const RecipesController = require('../controllers/recipe.controller')
 const multer = require('multer');
+const express = require('express');
+const path = require('path');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -31,6 +33,8 @@ const upload = multer({
 });
 
 module.exports = (app) => {
+    app.use('/recipeImages', express.static(path.join(__dirname, '../recipeImages')));
+
     app.get('/api/recipe', RecipesController.getAllRecipes);
     app.get('/api/recipe/:id', RecipesController.getById);
     app.get('/api/recipe/search/:search', RecipesController.getBySearch);
