@@ -2,6 +2,7 @@ import NavBar from './NavBar';
 import home from '../styles/home.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 const Home = (props) => {
 
@@ -43,12 +44,14 @@ const Home = (props) => {
             <div className='recipes-container'>
                 {recipeList && recipeList.map((recipe, index) => (
                     <div key={index} className='recipe-card'>
-                        <img className='card-image' src={recipe.image} alt='Recipe' />
-                        <div className='card-text-container'>
-                            <h2>{recipe.title}</h2>
-                            <p>{recipe.description}</p>
-                            <p>{recipe.user.username}</p>
-                        </div>
+                        <Link to={`recipe/${recipe.id}`} className='recipe-link'>
+                            <img className='card-image' src={recipe.image} alt='Recipe' />
+                            <div className='card-text-container'>
+                                <h2>{recipe.title}</h2>
+                                <p>{recipe.description}</p>
+                                <p>{recipe.user.username}</p>
+                            </div>
+                        </Link>
                     </div>
                 ))}
             </div>
