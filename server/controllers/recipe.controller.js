@@ -104,7 +104,7 @@ module.exports.getBySearch = (req, res) => {
     .then(recipes => {
         console.log(recipes);
         const recipesWithImages = recipes.map(recipe => {
-            const imageUrl = `../recipeImages/${recipe.image}`;
+            const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
             return {
                 id: recipe.id,
                 title: recipe.title,

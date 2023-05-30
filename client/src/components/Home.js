@@ -16,6 +16,7 @@ const Home = (props) => {
         .then(res => {
             setRecipeList(res.data);
             console.log(recipeList);
+            setSearchText("");
         })
         .catch((err) => {console.log(err)})
     }
@@ -25,7 +26,6 @@ const Home = (props) => {
         .then(res => {
             setRecipeList(res.data);
             console.log(recipeList);
-            setSearchText('');
         })
         .catch((err) => {console.log(err)});
     }, []
@@ -43,10 +43,12 @@ const Home = (props) => {
             <div className='recipes-container'>
                 {recipeList && recipeList.map((recipe, index) => (
                     <div key={index} className='recipe-card'>
-                        <img src={recipe.image} alt='Recipe' />
-                        <h2>{recipe.title}</h2>
-                        <p>{recipe.description}</p>
-                    <button>View Recipe</button>
+                        <img className='card-image' src={recipe.image} alt='Recipe' />
+                        <div className='card-text-container'>
+                            <h2>{recipe.title}</h2>
+                            <p>{recipe.description}</p>
+                            <p>{recipe.user.username}</p>
+                        </div>
                     </div>
                 ))}
             </div>
