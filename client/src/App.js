@@ -7,6 +7,7 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import RecipeForm from './components/RecipeForm';
+import Recipe from './components/Recipe';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
           <Route path={"/login"} element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/signup"} element={<SignUp loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/createRecipe"} element={<ProtectedRoute loggedIn={loggedIn}><RecipeForm/></ProtectedRoute>}/>
+          <Route path={"/recipe/:id"} element={<Recipe loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
         </Routes>
       </BrowserRouter>
     </div>

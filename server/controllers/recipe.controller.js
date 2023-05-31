@@ -51,10 +51,7 @@ module.exports.createRecipe = (req, res) => {
 module.exports.getAllRecipes = (req, res) => {
     Recipe.findAll({
         include: [
-            {
-                model: User,
-                attributes: ['username']
-            }
+            { model: User, attributes: ['username'] }
         ]
     })
     .then(recipes => {
@@ -79,8 +76,16 @@ module.exports.getAllRecipes = (req, res) => {
 }
 
 module.exports.getById = (req, res) => {
-    Recipe.findByPk(req.params.id)
+    Recipe.findByPk(req.params.id,
+        {
+            include: [
+                { model: Ingredients, attributes: ['ingredient'] },
+                { model: User, attributes: ['username'] }
+            ]
+        })
     .then(recipe => {
+        const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+        recipe.image = imageUrl;
         res.status(200).json(recipe);
     })
     .catch(err => res.status(400).json(err))
@@ -95,10 +100,7 @@ module.exports.getBySearch = (req, res) => {
             }
         },
         include: [
-            {
-                model: User,
-                attributes: ['username']
-            }
+            { model: User, attributes: ['username'] }
         ]
     })
     .then(recipes => {
