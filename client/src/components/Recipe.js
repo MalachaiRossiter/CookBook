@@ -28,9 +28,22 @@ const Recipe = (props) => {
         <div className="container">
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
             {loaded ? 
-                <div className="hero-image">
-                    <img className={"recipe-image"} src={recipe.image} alt='Recipe' />
-                </div>
+                    <div className="recipe-container">
+                        <img className={"recipe-image"} src={recipe.image} alt='Recipe' />
+                        <div className="recipe-text-container">
+                            <h1>{recipe.title}</h1>
+                            <h2>{recipe.description}</h2>
+                            <h4>Instrcutions:</h4>
+                            <p>{recipe.instructions}</p>
+                            <h4>Ingredients:</h4>
+                            <ul>
+                            {recipe.Ingredients.map((ingredient, index) => (
+                                <li key={index}>{ingredient.ingredient}</li>
+                            ))}
+                            </ul>
+                        </div>
+                    </div>
+
             : null}
         </div>
     )
