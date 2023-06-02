@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Recipe.associate = (models) => {
         Recipe.belongsTo(models.User);
-        Recipe.hasMany(models.Ingredients);
+        Recipe.hasMany(models.Ingredients, {onDelete: 'CASCADE', hooks: true });
     };
 
     return Recipe;

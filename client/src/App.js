@@ -8,6 +8,8 @@ import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
 import RecipeForm from './components/RecipeForm';
 import Recipe from './components/Recipe';
+import UserRecipes from './components/UserRecipes';
+import CreateRecipe from './components/CreateRecipe';
 
 function App() {
 
@@ -38,8 +40,10 @@ function App() {
           <Route path="/" element={<Home loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/login"} element={<Login loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/signup"} element={<SignUp loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
-          <Route path={"/createRecipe"} element={<ProtectedRoute loggedIn={loggedIn}><RecipeForm/></ProtectedRoute>}/>
+          <Route path={"/createRecipe"} element={<ProtectedRoute loggedIn={loggedIn}><CreateRecipe/></ProtectedRoute>}/>
           <Route path={"/recipe/:id"} element={<Recipe loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
+          <Route path={"/userRecipes"} element={<ProtectedRoute loggedIn={loggedIn}><UserRecipes loggedIn={loggedIn} setLoggedIn={setLoggedIn}/></ProtectedRoute>}/>
+          <Route path={"/favorites"} element={<ProtectedRoute loggedIn={loggedIn}><RecipeForm/></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>
     </div>

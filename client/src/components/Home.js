@@ -1,4 +1,5 @@
 import NavBar from './NavBar';
+import RecipeList from './RecipeList';
 import home from '../styles/home.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -37,24 +38,11 @@ const Home = (props) => {
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
             <div className='hero'>
                 <form onSubmit={submitHandler}>
-                    <input type='text' className='searchbar' value={searchText} onChange={(e) => {setSearchText(e.target.value)}}/>
+                    <input type='text' className='searchbar' value={searchText} placeholder='Epic Chicken Wings...' onChange={(e) => {setSearchText(e.target.value)}}/>
                     <input type="submit" className='search-btn' value="Go!"/>
                 </form>
             </div>
-            <div className='recipes-container'>
-                {recipeList && recipeList.map((recipe, index) => (
-                    <div key={index} className='recipe-card'>
-                        <Link to={`recipe/${recipe.id}`} className='recipe-link'>
-                            <img className='card-image' src={recipe.image} alt='Recipe' />
-                            <div className='card-text-container'>
-                                <h2>{recipe.title}</h2>
-                                <p>{recipe.description}</p>
-                                <p>{recipe.user.username}</p>
-                            </div>
-                        </Link>
-                    </div>
-                ))}
-            </div>
+            <RecipeList recipeList={recipeList}/>
         </div>
     )
 }

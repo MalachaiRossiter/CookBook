@@ -2,9 +2,10 @@ const UsersController = require('../controllers/user.controller');
 const {authenticate} = require('../config/jwt.config');
 
 module.exports = (app) => {
-    app.get('/api/user', UsersController.getAllUsers);
-    app.get('/api/user/:id', UsersController.getUser);
-    app.post('/api/user', UsersController.createUser);
+    app.get('/api/user', authenticate, UsersController.getAllUsers);
+    app.get('/api/user/userInfo', authenticate, UsersController.returnUserInfo);
+    app.get('/api/user/:id', authenticate, UsersController.getUser);
+    app.post('/api/user', authenticate, UsersController.createUser);
     app.delete('/api/user/:id', authenticate, UsersController.deleteUser);
 
     //logining in and out

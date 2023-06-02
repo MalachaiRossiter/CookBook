@@ -1,4 +1,5 @@
-const RecipesController = require('../controllers/recipe.controller')
+const RecipesController = require('../controllers/recipe.controller');
+const {authenticate} = require('../config/jwt.config');
 const multer = require('multer');
 const express = require('express');
 const path = require('path');
@@ -35,10 +36,14 @@ const upload = multer({
 module.exports = (app) => {
     app.use('/recipeImages', express.static(path.join(__dirname, '../recipeImages')));
 
+    //get recipe from database
     app.get('/api/recipe', RecipesController.getAllRecipes);
+    app.get('/api/recipe/user', authenticate, RecipesController.getByUser);
     app.get('/api/recipe/:id', RecipesController.getById);
     app.get('/api/recipe/search/:search', RecipesController.getBySearch);
-    app.post('/api/recipe', upload.single('imageFile'), RecipesController.createRecipe);
-    app.put('/api/recipe/:id', RecipesController.updateRecipe);
-    app.delete('/api/recipe/:id', RecipesController.deleteRecipe);
+
+    //change/add recipe in database
+    app.post('/api/recipe', upload.single('imageFile'), authenticate, RecipesController.createRecipe);
+    app.put('/api/recipe/:id', upload.single('imageFile'), authenticate, RecipesController.updateRecipe);
+    app.delete('/api/recipe/:id', authenticate, RecipesController.deleteRecipe);
 }

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Ingredients.associate = (models) => {
-        Ingredients.belongsTo(models.Recipe);
+        Ingredients.belongsTo(models.Recipe, {onDelete: 'CASCADE', hooks: true });
     }
 
     return Ingredients;

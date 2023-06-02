@@ -64,6 +64,20 @@ module.exports.logout = (req, res) => {
     res.sendStatus(200);
 }
 
+module.exports.returnUserInfo = (req, res) => {
+    try {
+        // Verify the user token from the cookie
+        const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
+        // Extract the user information
+        const userInfo = {username: user.username, id: user.id}
+        // Return the user information as a response
+        res.status(200).json(userInfo);
+    } catch (error) {
+        // Handle any errors that occur during token verification
+        res.status(400).json({ error: 'Invalid token' });
+    }
+}
+
 // GENERAL USER CRUD BELOW
 
 module.exports.getAllUsers = (req, res) => {
