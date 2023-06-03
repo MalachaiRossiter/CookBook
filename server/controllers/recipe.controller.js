@@ -273,3 +273,34 @@ module.exports.toggleFavoriteRecipe = (req, res) => {
     })
     .catch(err => res.status(400).json(err));
 };
+
+module.exports.getFavoriteRecipes = (req, res) => {
+    const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
+    
+    Favorites.findAll({
+        where: { UserId: user.id },
+        include: [
+        { model: Recipe, include: [{ model: User, attributes: ['username'] }] }
+        ]
+    })
+    .then(favorites => {
+        const favoriteRecipes = favorites.map(favorite => {
+        const recipe = favorite.Recipe;
+        const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+        return {
+            id: recipe.id,
+            title: recipe.title,
+            description: recipe.description,
+            instructions: recipe.instructions,
+            image: imageUrl,
+            user: recipe.User,
+            ingredients: recipe.Ingredients
+        };
+        });
+        res.status(200).json(favoriteRecipes);
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(400).json({ error: 'Failed to get favorite recipes' });
+    });
+};

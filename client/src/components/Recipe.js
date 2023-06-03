@@ -82,17 +82,19 @@ const Recipe = (props) => {
                         ))}
                     </ul>
                 </div>
-                {loggedIn && user && (recipe.UserId === user.id) ?
+                {loggedIn && user && (recipe.UserId === user.id) ? (
                     <div className="options-container">
                         <button className="option-btn" id="favorite" onClick={handleFavorite}>Favorite</button>
                         <button className="option-btn" id="edit" onClick={handleEdit}>Edit</button>
                         <button className="option-btn" id="delete" onClick={handleDelete}>Delete</button>
                     </div>
-                    : 
-                    <div className="options-container">
-                        <button className="option-btn" id="favorite" onClick={handleFavorite}>Favorite</button>
-                    </div>
-                }
+                ) : (
+                    loggedIn ? (
+                        <div className="options-container">
+                            <button className="option-btn" id="favorite" onClick={handleFavorite}>Favorite</button>
+                        </div>
+                    ) : null
+                )}
                 <div id={"favorite-message"}>
                     {favoriteMessage}
                 </div>

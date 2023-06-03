@@ -11,6 +11,7 @@ import Recipe from './components/Recipe';
 import UserRecipes from './components/UserRecipes';
 import CreateRecipe from './components/CreateRecipe';
 import UpdateRecipe from './components/UpdateRecipe';
+import FavoriteRecipes from './components/FavoriteRecipes';
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
           <Route path={"/updateRecipe/:id"} element={<ProtectedRoute loggedIn={loggedIn}><UpdateRecipe loggedIn={loggedIn} setLoggedIn={setLoggedIn}/></ProtectedRoute>}/>
           <Route path={"/recipe/:id"} element={<Recipe loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>}/>
           <Route path={"/userRecipes"} element={<ProtectedRoute loggedIn={loggedIn}><UserRecipes loggedIn={loggedIn} setLoggedIn={setLoggedIn}/></ProtectedRoute>}/>
-          <Route path={"/favorites"} element={<ProtectedRoute loggedIn={loggedIn}><RecipeForm/></ProtectedRoute>}/>
+          <Route path={"/favorites"} element={<ProtectedRoute loggedIn={loggedIn}><FavoriteRecipes loggedIn={loggedIn} setLoggedIn={setLoggedIn}/></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>
     </div>
