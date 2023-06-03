@@ -1,4 +1,4 @@
-const { Recipe, Ingredients, User, Sequelize } = require('../models');
+const { Recipe, Ingredients, User, Favorites, Sequelize } = require('../models');
 const jwt = require('jsonwebtoken');
 const { v4: uuidv4} = require('uuid');
 const sharp = require('sharp');
@@ -16,7 +16,7 @@ module.exports.createRecipe = (req, res) => {
     sharp(req.file.path)
         .metadata()
         .then(metadata => {
-            const { width, height } = metadata;
+            const { width, height } = metadata;noodles
             if (width < 700 || height < 400) {
                 // Delete the invalid image file
                 fs.unlinkSync(req.file.path);
@@ -157,12 +157,61 @@ module.exports.getByUser = (req, res) => {
 }
 
 module.exports.updateRecipe = (req, res) => {
-    Recipe.update(req.body, {where: {id: req.params.id}})
-    .then(updatedRecipe => {
-        res.status(200).json({msg: "updated recipe at " + updatedRecipe});
+    const recipeId = req.params.id;
+    const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
+    const { title, description, instructions, ingredients } = req.body;
+    // Check if image file is present in the request
+    if (!req.file) {
+        return res.status(400).json({ error: 'Image file is required' });
+    }
+    Recipe.findByPk(recipeId)
+        .then(recipe => {
+        // Delete the old image
+        const oldImagePath = `recipeImages/${recipe.image}`;
+        fs.unlink(oldImagePath, (err) => {
+            if (err) {
+            console.log(err);
+        }
+        });
+        // Check image dimensions
+        sharp(req.file.path)
+        .metadata()
+        .then(metadata => {
+            const { width, height } = metadata;
+            if (width < 700 || height < 400) {
+              // Delete the invalid image file
+            fs.unlinkSync(req.file.path);
+            return res.status(400).json({ error: 'Image dimensions should be at least 700 x 400 pixels' });
+            }
+            // Generate a unique filename
+            const fileName = `${uuidv4()}${path.extname(req.file.originalname)}`;
+            // Move the uploaded image file to the desired directory
+            fs.renameSync(req.file.path, `recipeImages/${fileName}`);
+            // Update the recipe details and the image in the database
+            Recipe.update({ title, description, instructions, image: fileName }, { where: { id: recipeId } })
+            .then(() => {
+                // Delete the old ingredients
+                Ingredients.destroy({ where: { RecipeId: recipeId } })
+                .then(() => {
+                    // Insert the new ingredients
+                    const newIngredients = ingredients.map(ingredient => ({ ingredient, RecipeId: recipeId }));
+                    Ingredients.bulkCreate(newIngredients)
+                    .then(() => {
+                        res.status(200).json({ message: 'Recipe updated successfully' });
+                    })
+                    .catch(err => res.status(400).json(err));
+                })
+                .catch(err => res.status(400).json(err));
+            })
+            .catch(err => res.status(400).json(err));
+        })
+        .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: 'Failed to process the image' });
+        });
     })
-    .catch(err => res.status(400).json(err))
-}
+    .catch(err => res.status(400).json(err));
+};
 
 module.exports.deleteRecipe = (req, res) => {
     const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
@@ -195,4 +244,32 @@ module.exports.deleteRecipe = (req, res) => {
         });
     })
     .catch(err => res.status(400).json({ error: 'Recipe not found' }));
+};
+
+//favoriting a recipe
+module.exports.toggleFavoriteRecipe = (req, res) => {
+    const user = jwt.verify(req.cookies.usertoken, process.env.SECRET_COOKIE);
+    const recipeId = req.params.id;
+
+    console.log(user.id, recipeId);
+    // Check if the recipe is already favorited by the user
+    Favorites.findOne({ where: { UserId: user.id, RecipeId: recipeId } })
+    .then(favorite => {
+        if (favorite) {
+            // Recipe is already favorited, so unfavorite it
+            Favorites.destroy({ where: { UserId: user.id, RecipeId: recipeId } })
+            .then(() => {
+                res.status(200).json({ message: 'Recipe unfavorited successfully' });
+            })
+            .catch(err => res.status(400).json(err));
+        } else {
+            // Recipe is not favorited, so favorite it
+            Favorites.create({ UserId: user.id, RecipeId: recipeId })
+            .then(() => {
+                res.status(200).json({ message: 'Recipe favorited successfully' });
+            })
+            .catch(err => res.status(400).json(err));
+        }
+    })
+    .catch(err => res.status(400).json(err));
 };

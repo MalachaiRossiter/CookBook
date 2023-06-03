@@ -46,4 +46,7 @@ module.exports = (app) => {
     app.post('/api/recipe', upload.single('imageFile'), authenticate, RecipesController.createRecipe);
     app.put('/api/recipe/:id', upload.single('imageFile'), authenticate, RecipesController.updateRecipe);
     app.delete('/api/recipe/:id', authenticate, RecipesController.deleteRecipe);
+
+    //favorite a recipe
+    app.get('/api/favorite/:id', authenticate, RecipesController.toggleFavoriteRecipe);
 }

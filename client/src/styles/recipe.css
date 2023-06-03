@@ -68,3 +68,11 @@
 #delete:hover{
     background-color: rgb(255, 0, 0);
 }
+
+#favorite-message{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #3cff00;
+    padding: 10px;
+}

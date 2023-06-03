@@ -1,21 +1,38 @@
-.container{
+.container {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.row {
+h1{
+    font-size: 40px;
+}
+
+.input-container{
     display: flex;
+    flex-direction: column;
 }
 
-.column1-2{
-    width: 50%;
-    height: 100vh;
+.recipe-descriptors{
+    width: 60%;
 }
 
-.background1{
-    background-image: url('../images/recipeform.jpg');
-    background-size: cover;
+textarea{
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
-.background2{
-    background-color: #fff;
+#create-recipe-textarea{
+    border: solid 5px;
+}
+
+#ingredient:hover{
+    cursor: pointer;
+    color: red;
+}
+
+#recipe-submit-btn{
+    margin-left: 20px;
+}
+
+#file-submit-btn{
+    margin: 10px 0px;
+    font-size: 20px;
 }

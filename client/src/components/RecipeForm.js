@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import recipeForm from '../styles/recipeForm.css';
 
 const RecipeForm = (props) => {
     const { submitHandler, recipe } = props; // Accept recipe object as prop if it's an update
@@ -13,11 +15,12 @@ const RecipeForm = (props) => {
 
     useEffect(() => {
     if (recipe) {
+        console.log(recipe);
         // If recipe object is provided, populate the form fields with its values
         setTitle(recipe.title);
         setDescription(recipe.description);
         setInstructions(recipe.instructions);
-        setIngredients(recipe.ingredients);
+        setIngredients(recipe.Ingredients.map((ingredient) => ingredient.ingredient));
     }
     }, [recipe]);
 
@@ -40,14 +43,14 @@ const RecipeForm = (props) => {
         formData.append('instructions', instructions);
         formData.append('imageFile', imageFile);
         ingredients.forEach((ingredient, index) => {
-        formData.append(`ingredients[${index}]`, ingredient);
-    });
-    submitHandler(formData);
+            formData.append(`ingredients[${index}]`, ingredient);
+        });
+        submitHandler(formData);
     };
 
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="recipe-form">
                 <h1>Get Creative</h1>
                 {errors.map((err, index) => (
                 <p key={index} className="error">
@@ -56,34 +59,31 @@ const RecipeForm = (props) => {
                 ))}
                 <div className="input-container">
                     <label>Name Your Recipe</label>
-                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="form-input" placeholder="Super Noodle Squad"/>
+                    <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="form-input recipe-descriptors" placeholder="Tasty Yum Yum Sauce"/>
                 </div>
                 <div className="input-container">
                     <label>Describe the Dish</label>
-                    <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="form-input" placeholder="Super Noodle Squad"/>
+                    <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} className="form-input recipe-descriptors" placeholder="You'll never believe it's awesomeness!"/>
                 </div>
                 <div className="input-container">
                     <label>Instructions</label>
-                    <textarea value={instructions} onChange={(e) => setInstructions(e.target.value)} className="form-input" placeholder="Super Noodle Squad"/>
+                    <textarea value={instructions} rows={10} onChange={(e) => setInstructions(e.target.value)} className="form-input recipe-descriptors" id="create-recipe-textarea" placeholder="Just whip around and Spin"/>
                 </div>
                     <label>Ingredients</label>
                 <div className="input-ingredient">
                     <input type="text" value={newIngredient} onChange={(e) => setNewIngredient(e.target.value)} className="form-input" placeholder="Enter a new ingredient"/>
-                    <button type="button" onClick={handleNewIngredient}>Add Ingredient</button>
-                </div>
-                <div className="input-container">
+                    <button type="button" className="submit-btn" id="recipe-submit-btn" onClick={handleNewIngredient}>Add Ingredient</button>
                     <ul>
                         {ingredients.map((ingredient, index) => (
-                        <li key={index}>
-                            {ingredient}{' '}
-                            <button onClick={() => handleRemoveIngredient(index)}>Remove</button>
+                        <li key={index} onClick={() => handleRemoveIngredient(index)} id="ingredient">
+                            {ingredient}
                         </li>
                         ))}
                     </ul>
                 </div>
                 <div className="input-container">
                     <label>Upload an Image</label>
-                    <input type="file" onChange={(e) => setImageFile(e.target.files[0])} className="form-input" accept="image/*"/>
+                    <input type="file" id="file-submit-btn" onChange={(e) => setImageFile(e.target.files[0])} accept="image/*"/>
                 </div>
                     <input type="submit" className="submit-btn" />
             </form>

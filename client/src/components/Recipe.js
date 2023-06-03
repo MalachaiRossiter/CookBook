@@ -12,6 +12,7 @@ const Recipe = (props) => {
     const [user, setUser] = useState();
     const [recipe, setRecipe] = useState();
     const [loaded, setLoaded] = useState(false);
+    const [favoriteMessage, setFavoriteMessage] = useState();
 
     const navigate = useNavigate();
 
@@ -46,6 +47,23 @@ const Recipe = (props) => {
         });
     };
 
+    const handleEdit = (e) => {
+        e.preventDefault();
+        navigate(`/updateRecipe/${id}`);
+    }
+
+    const handleFavorite = (e) => {
+        e.preventDefault();
+        axios.get(`http://localhost:8000/api/favorite/${id}`, {withCredentials: true})
+        .then(res => {
+            console.log(res.data);
+            setFavoriteMessage(res.data.message);
+        })
+        .catch(err => {
+            console.log("Error deleting item:", err);
+        });
+    }
+
     return (
         <div className="container">
         <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
@@ -66,15 +84,18 @@ const Recipe = (props) => {
                 </div>
                 {loggedIn && user && (recipe.UserId === user.id) ?
                     <div className="options-container">
-                        <button className="option-btn" id="favorite">Favorite</button>
-                        <button className="option-btn" id="edit">Edit</button>
+                        <button className="option-btn" id="favorite" onClick={handleFavorite}>Favorite</button>
+                        <button className="option-btn" id="edit" onClick={handleEdit}>Edit</button>
                         <button className="option-btn" id="delete" onClick={handleDelete}>Delete</button>
                     </div>
                     : 
                     <div className="options-container">
-                        <button className="option-btn">Favorite</button>
+                        <button className="option-btn" id="favorite" onClick={handleFavorite}>Favorite</button>
                     </div>
-                    }
+                }
+                <div id={"favorite-message"}>
+                    {favoriteMessage}
+                </div>
             </div>
         : null}
     </div>

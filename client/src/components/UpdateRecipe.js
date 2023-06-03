@@ -1,20 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import RecipeForm from './RecipeForm';
 import NavBar from './NavBar';
 import createRecipe from '../styles/createRecipe.css';
 
-const CreateRecipe = (props) => {
+const UpdateRecipe = (props) => {
     const {loggedIn, setLoggedIn} = props;
+    const {id} = useParams();
     const navigate = useNavigate();
     const [errors, setErrors] = useState([]);
+    const [recipe, setRecipe] = useState();
 
-    const createRecipe = (formData) => {
-    axios.post('http://localhost:8000/api/recipe', formData, 
-    {withCredentials: true,headers: { 'Content-Type': 'multipart/form-data' }})
-    .then((res) => {
+    useEffect(() => {
+        axios.get(`http://localhost:8000/api/recipe/${id}`)
+        .then((res) => {
+            setRecipe(res.data);
+            console.log(recipe);
+        })
+        .catch((err) => {console.log(err)});
+    }, [])
+
+    const updateRecipe = (formData) => {
+        axios.put(`http://localhost:8000/api/recipe/${id}`, formData, 
+        {withCredentials: true,headers: { 'Content-Type': 'multipart/form-data' }})
+        .then((res) => {
         console.log(res.data);
         navigate('/');
     })
@@ -36,7 +47,7 @@ const CreateRecipe = (props) => {
             <div className="column1-2 background1">
             </div>
             <div className="column1-2 background2">
-                <RecipeForm submitHandler={createRecipe} />
+                <RecipeForm submitHandler={updateRecipe} recipe={recipe}/>
                 {errors.map((err, index) => (
                     <p key={index} className="error">
                         {err}
@@ -48,4 +59,4 @@ const CreateRecipe = (props) => {
 );
 };
 
-export default CreateRecipe;
+export default UpdateRecipe;
