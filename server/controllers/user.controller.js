@@ -8,8 +8,16 @@ module.exports.createUser = async (req, res) => {
     const { username, email, password, confirmPassword } = req.body;
 
     if (confirmPassword != password){
-        return res.status(400).json({errors: [{message:'Passwords do not Match'}]});
+        return res.status(400).json({errors: [{message:'Passwords do not match'}]});
     }
+
+    // Password validations
+    if (password.length < 8 || !/\d/.test(password) || !/[!@#$%^&*]/.test(password)) {
+        return res.status(400).json({ errors: [{ message: 'Password must be at least 8 characters long and contain a number and a special character' }] });
+    }
+
+    // Convert email to lowercase
+    const lowercaseEmail = email.toLowerCase();
 
     //has the password using bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -26,7 +34,8 @@ module.exports.createUser = async (req, res) => {
 
 //login check
 module.exports.login = async(req, res) => {
-    const user = await User.findOne({where: {email: req.body.email}});
+    const lowercaseEmail = req.body.email.toLowerCase();
+    const user = await User.findOne({where: {email: lowercaseEmail}});
     try{
         if(user === null) {
             console.log("user does not exist");

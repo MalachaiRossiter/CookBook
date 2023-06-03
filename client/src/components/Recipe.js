@@ -13,6 +13,7 @@ const Recipe = (props) => {
     const [recipe, setRecipe] = useState();
     const [loaded, setLoaded] = useState(false);
     const [favoriteMessage, setFavoriteMessage] = useState();
+    const [isFavoriteMessageVisible, setIsFavoriteMessageVisible] = useState(false);
 
     const navigate = useNavigate();
 
@@ -58,6 +59,7 @@ const Recipe = (props) => {
         .then(res => {
             console.log(res.data);
             setFavoriteMessage(res.data.message);
+            setIsFavoriteMessageVisible(true); // Show the message when the handler is triggered
         })
         .catch(err => {
             console.log("Error deleting item:", err);
@@ -73,7 +75,7 @@ const Recipe = (props) => {
                 <div className="recipe-text-container">
                     <h1>{recipe.title}</h1>
                     <h2>{recipe.description}</h2>
-                    <h4>Instrcutions:</h4>
+                    <h4>Instructions:</h4>
                     <p>{recipe.instructions}</p>
                     <h4>Ingredients:</h4>
                     <ul>
@@ -95,7 +97,7 @@ const Recipe = (props) => {
                         </div>
                     ) : null
                 )}
-                <div id={"favorite-message"}>
+                <div id={"favorite-message"} style={{ display: isFavoriteMessageVisible ? "block" : "none" }}>
                     {favoriteMessage}
                 </div>
             </div>

@@ -5,7 +5,9 @@ module.exports = (app) => {
     app.get('/api/user', authenticate, UsersController.getAllUsers);
     app.get('/api/user/userInfo', authenticate, UsersController.returnUserInfo);
     app.get('/api/user/:id', authenticate, UsersController.getUser);
-    app.post('/api/user', authenticate, UsersController.createUser);
+    //create user
+    app.post('/api/user', UsersController.createUser);
+    //delete user
     app.delete('/api/user/:id', authenticate, UsersController.deleteUser);
 
     //logining in and out

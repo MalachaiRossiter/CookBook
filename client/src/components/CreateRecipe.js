@@ -36,12 +36,12 @@ const CreateRecipe = (props) => {
             <div className="column1-2 background1">
             </div>
             <div className="column1-2 background2">
-                <RecipeForm submitHandler={createRecipe} />
                 {errors.map((err, index) => (
                     <p key={index} className="error">
                         {err}
                     </p>
                 ))}
+                <RecipeForm submitHandler={createRecipe} />
             </div>
         </div>
     </div>

@@ -1,3 +1,12 @@
+const validatePassword = (value) => {
+    if (!/\d/.test(value)) {
+        throw new Error('Password must contain at least one number');
+    }
+    if (!/[!@#$%^&*]/.test(value)) {
+        throw new Error('Password must contain at least one symbol');
+    }
+};
+
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("User", {
         username: {

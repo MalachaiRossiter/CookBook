@@ -10,17 +10,17 @@ module.exports.createRecipe = (req, res) => {
     const {title, description, instructions, ingredients} = req.body;
     // Check if image file is present in the request
     if (!req.file) {
-        return res.status(400).json({ error: 'Image file is required' });
+        return res.status(400).json({ errors: [{message:'Image file is required'}] });
     }
     // Check image dimensions
     sharp(req.file.path)
         .metadata()
         .then(metadata => {
-            const { width, height } = metadata;noodles
+            const { width, height } = metadata;
             if (width < 700 || height < 400) {
                 // Delete the invalid image file
                 fs.unlinkSync(req.file.path);
-                return res.status(400).json({ error: 'Image dimensions should be at least 700 x 400 pixels' });
+                return res.status(400).json({ error: [{message:'Image dimensions should be at least 700 x 400 pixels'}] });
             }
             // Generate a unique filename
             const fileName = `${uuidv4()}${path.extname(req.file.originalname)}`;
@@ -42,7 +42,7 @@ module.exports.createRecipe = (req, res) => {
     })
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: 'Failed to process the image' });
+        res.status(500).json({ error: [{message:'Failed to process the image'}] });
     });
 };
 
@@ -69,7 +69,7 @@ module.exports.getAllRecipes = (req, res) => {
     })
     .catch(err => {
         console.error(err);
-        res.status(400).json({error: 'Failed to get Recipes'});
+        res.status(400).json({error: [{message: 'Failed to get Recipes'}]});
     });
 }
 
@@ -119,7 +119,7 @@ module.exports.getBySearch = (req, res) => {
     })
     .catch(err => {
         console.error(err);
-        res.status(400).json({error: 'Failed to get Recipes'});
+        res.status(400).json({error: [{message:'Failed to get Recipes'}]});
     });
 }
 
@@ -152,7 +152,7 @@ module.exports.getByUser = (req, res) => {
     })
     .catch(err => {
         console.error(err);
-        res.status(400).json({error: 'Failed to get Recipes'});
+        res.status(400).json({error: [{message:'Failed to get Recipes'}]});
     });
 }
 
@@ -162,7 +162,7 @@ module.exports.updateRecipe = (req, res) => {
     const { title, description, instructions, ingredients } = req.body;
     // Check if image file is present in the request
     if (!req.file) {
-        return res.status(400).json({ error: 'Image file is required' });
+        return res.status(400).json({ error: [{message:'Image file is required'}] });
     }
     Recipe.findByPk(recipeId)
         .then(recipe => {
@@ -181,7 +181,7 @@ module.exports.updateRecipe = (req, res) => {
             if (width < 700 || height < 400) {
               // Delete the invalid image file
             fs.unlinkSync(req.file.path);
-            return res.status(400).json({ error: 'Image dimensions should be at least 700 x 400 pixels' });
+            return res.status(400).json({ error: [{message:'Image dimensions should be at least 700 x 400 pixels'}] });
             }
             // Generate a unique filename
             const fileName = `${uuidv4()}${path.extname(req.file.originalname)}`;
@@ -207,7 +207,7 @@ module.exports.updateRecipe = (req, res) => {
         })
         .catch(err => {
         console.log(err);
-        res.status(500).json({ error: 'Failed to process the image' });
+        res.status(500).json({ error: [{message:'Failed to process the image'}] });
         });
     })
     .catch(err => res.status(400).json(err));
@@ -226,7 +226,7 @@ module.exports.deleteRecipe = (req, res) => {
         fs.unlink(imagePath, err => {
         if (err) {
             console.error(err);
-            res.status(500).json({ error: 'Failed to delete image' });
+            res.status(500).json({ error: [{message:'Failed to delete image'}] });
         } else {
             // Image file deleted successfully, now delete the recipe
             Recipe.destroy({

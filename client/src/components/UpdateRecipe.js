@@ -47,12 +47,12 @@ const UpdateRecipe = (props) => {
             <div className="column1-2 background1">
             </div>
             <div className="column1-2 background2">
-                <RecipeForm submitHandler={updateRecipe} recipe={recipe}/>
                 {errors.map((err, index) => (
                     <p key={index} className="error">
                         {err}
                     </p>
                 ))}
+                <RecipeForm submitHandler={updateRecipe} recipe={recipe}/>
             </div>
         </div>
     </div>
