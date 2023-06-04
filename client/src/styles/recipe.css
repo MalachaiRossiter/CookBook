@@ -1,0 +1,78 @@
+.container {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.recipe-container {
+    margin: 20px 10%;
+}
+
+.recipe-image {
+    width: 100%;
+    height: 60vh;
+    margin: 20px 0;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.recipe-text-container {
+    text-align: left;
+}
+
+.recipe-text-container h1 {
+    font-size: 48px;
+}
+
+.recipe-text-container h2 {
+    font-size: 32px;
+}
+
+.recipe-text-container h4 {
+    font-size: 24px;
+}
+
+.recipe-text-container p, li {
+    font-size: 20px;
+}
+
+.option-btn{
+    margin-right: 1vw;
+    padding: 10px 15px;
+    font-family: 'Roboto Condensed';
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.25s ease;
+}
+
+#favorite{
+    background-color: rgb(253, 251, 126);
+}
+
+#favorite:hover{
+    background-color: rgb(255, 251, 0);
+}
+
+#edit{
+    background-color: rgb(137, 253, 126);
+}
+
+#edit:hover{
+    background-color: rgb(21, 255, 0);
+}
+
+#delete{
+    background-color: rgb(253, 126, 126);
+}
+
+#delete:hover{
+    background-color: rgb(255, 0, 0);
+}
+
+#favorite-message{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #3cff00;
+    padding: 10px;
+}

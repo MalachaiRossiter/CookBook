@@ -1,0 +1,38 @@
+.container {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1{
+    font-size: 40px;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe-descriptors{
+    width: 60%;
+}
+
+textarea{
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#create-recipe-textarea{
+    border: solid 5px;
+}
+
+#ingredient:hover{
+    cursor: pointer;
+    color: red;
+}
+
+#recipe-submit-btn{
+    margin-left: 20px;
+}
+
+#file-submit-btn{
+    margin: 10px 0px;
+    font-size: 20px;
+}
