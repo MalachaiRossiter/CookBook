@@ -168,6 +168,9 @@ module.exports.updateRecipe = (req, res) => {
     if (!req.file) {
         return res.status(400).json({ error: [{message:'Image file is required'}] });
     }
+    if (!ingredients) {
+        return res.status(400).json({ errors: [{ message: 'Ingredients are required' }] });
+    }
     Recipe.findByPk(recipeId)
         .then(recipe => {
         // Delete the old image
