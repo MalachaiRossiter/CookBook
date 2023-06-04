@@ -12,6 +12,9 @@ module.exports.createRecipe = (req, res) => {
     if (!req.file) {
         return res.status(400).json({ errors: [{message:'Image file is required'}] });
     }
+    if (!ingredients) {
+        return res.status(400).json({ errors: [{ message: 'Ingredients are required' }] });
+    }
     // Check image dimensions
     sharp(req.file.path)
         .metadata()
@@ -20,13 +23,14 @@ module.exports.createRecipe = (req, res) => {
             if (width < 700 || height < 400) {
                 // Delete the invalid image file
                 fs.unlinkSync(req.file.path);
-                return res.status(400).json({ error: [{message:'Image dimensions should be at least 700 x 400 pixels'}] });
+                return res.status(400).json({ errors: [{message:'Image dimensions should be at least 700 x 400 pixels'}] });
             }
             // Generate a unique filename
             const fileName = `${uuidv4()}${path.extname(req.file.originalname)}`;
             // Move the uploaded image file to the desired directory
-            fs.renameSync(req.file.path, `recipeImages/${fileName}`);
+            fs.renameSync(req.file.path, path.join(__dirname, `../recipeImages/${fileName}`));
             // Save the recipe details and the filename in the database
+            console.log(title, description, instructions, ingredients);
             Recipe.create({ title, description, instructions, image: fileName, UserId: user.id })
             .then(recipe => {
                 const promises = ingredients.map(ingredient => {
