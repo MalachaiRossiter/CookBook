@@ -44,9 +44,9 @@ const UpdateRecipe = (props) => {
         <div className="container">
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
         <div className="row">
-            <div className="column1-2 background1">
+            <div className="column-left background1">
             </div>
-            <div className="column1-2 background2">
+            <div className="column-right background2">
                 {errors.map((err, index) => (
                     <p key={index} className="error">
                         {err}

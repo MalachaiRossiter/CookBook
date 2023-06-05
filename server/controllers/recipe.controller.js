@@ -58,7 +58,7 @@ module.exports.getAllRecipes = (req, res) => {
     })
     .then(recipes => {
         const recipesWithImages = recipes.map(recipe => {
-            const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+            const imageUrl = `${req.protocol}://${req.get('host')}/api/recipeImages/${recipe.image}`;
             return {
                 id: recipe.id,
                 title: recipe.title,
@@ -86,7 +86,7 @@ module.exports.getById = (req, res) => {
             ]
         })
     .then(recipe => {
-        const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+        const imageUrl = `${req.protocol}://${req.get('host')}/api/recipeImages/${recipe.image}`;
         recipe.image = imageUrl;
         res.status(200).json(recipe);
     })
@@ -108,7 +108,7 @@ module.exports.getBySearch = (req, res) => {
     .then(recipes => {
         console.log(recipes);
         const recipesWithImages = recipes.map(recipe => {
-            const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+            const imageUrl = `${req.protocol}://${req.get('host')}/api/recipeImages/${recipe.image}`;
             return {
                 id: recipe.id,
                 title: recipe.title,
@@ -141,7 +141,7 @@ module.exports.getByUser = (req, res) => {
     .then(recipes => {
         console.log(recipes);
         const recipesWithImages = recipes.map(recipe => {
-            const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+            const imageUrl = `${req.protocol}://${req.get('host')}/api/recipeImages/${recipe.image}`;
             return {
                 id: recipe.id,
                 title: recipe.title,
@@ -227,7 +227,7 @@ module.exports.deleteRecipe = (req, res) => {
         if (recipe.UserId !== user.id) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
-        const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+        const imageUrl = `${req.protocol}://${req.get('host')}/api/recipeImages/${recipe.image}`;
         const imagePath = path.join(__dirname, '../recipeImages', recipe.image);
         // Delete the image file from the server
         fs.unlink(imagePath, err => {
@@ -293,7 +293,7 @@ module.exports.getFavoriteRecipes = (req, res) => {
     .then(favorites => {
         const favoriteRecipes = favorites.map(favorite => {
         const recipe = favorite.Recipe;
-        const imageUrl = `${req.protocol}://${req.get('host')}/recipeImages/${recipe.image}`;
+        const imageUrl = `${req.protocol}://${req.get('host')}/api/recipeImages/${recipe.image}`;
         return {
             id: recipe.id,
             title: recipe.title,

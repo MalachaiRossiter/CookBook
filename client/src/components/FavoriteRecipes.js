@@ -21,7 +21,9 @@ const FavoriteRecipes = (props) => {
     return (
         <div className="container">
             <NavBar loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
-            <h1>Your Favorite Recipes</h1>
+            <div className='section-header'>
+                <h1 className=''>Your Favorite Recipes</h1>
+            </div>
             <RecipeList recipeList={recipeList}/>
         </div>
     )

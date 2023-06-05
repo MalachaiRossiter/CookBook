@@ -34,7 +34,7 @@ const upload = multer({
 });
 
 module.exports = (app) => {
-    app.use('/recipeImages', express.static(path.join(__dirname, '../recipeImages')));
+    app.use('/api/recipeImages', express.static(path.join(__dirname, '../recipeImages')));
 
     //get recipe from database
     app.get('/api/recipe', RecipesController.getAllRecipes);

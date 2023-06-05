@@ -71,7 +71,7 @@ const RecipeForm = (props) => {
                 </div>
                     <label>Ingredients</label>
                 <div className="input-ingredient">
-                    <input type="text" value={newIngredient} onChange={(e) => setNewIngredient(e.target.value)} className="form-input" placeholder="Enter a new ingredient"/>
+                    <input type="text" value={newIngredient} onChange={(e) => setNewIngredient(e.target.value)} className="form-input recipe-ingredient" placeholder="Enter a new ingredient"/>
                     <button type="button" className="submit-btn" id="recipe-submit-btn" onClick={handleNewIngredient}>Add Ingredient</button>
                     <ul>
                         {ingredients.map((ingredient, index) => (

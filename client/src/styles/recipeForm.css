@@ -12,7 +12,7 @@ h1{
 }
 
 .recipe-descriptors{
-    width: 60%;
+    width: 100%;
 }
 
 textarea{
@@ -21,6 +21,10 @@ textarea{
 
 #create-recipe-textarea{
     border: solid 5px;
+}
+
+.recipe-ingredient{
+    width: 55%;
 }
 
 #ingredient:hover{
@@ -35,4 +39,21 @@ textarea{
 #file-submit-btn{
     margin: 10px 0px;
     font-size: 20px;
+}
+
+@media (max-width: 1200px) {
+
+    .recipe-ingredient{
+        width: 100%;
+    }
+
+    #recipe-submit-btn{
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 600px) {
+    li, h1{
+        color: #fff;
+    }
 }
