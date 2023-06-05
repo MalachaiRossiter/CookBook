@@ -12,6 +12,7 @@ import UserRecipes from './components/UserRecipes';
 import CreateRecipe from './components/CreateRecipe';
 import UpdateRecipe from './components/UpdateRecipe';
 import FavoriteRecipes from './components/FavoriteRecipes';
+import LoadingSpinner from './components/LoadingSpinner';
 
 function App() {
 
@@ -33,9 +34,7 @@ function App() {
 
   if (loggedIn === null) { // Display a loading screen if loggedIn is null
     return (
-      <div className="loading-spinner">
-        <div className="spinner"></div>
-      </div>
+      <LoadingSpinner/>
     );
   }
 
