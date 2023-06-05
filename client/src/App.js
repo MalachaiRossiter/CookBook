@@ -32,7 +32,11 @@ function App() {
   }, [loggedIn])
 
   if (loggedIn === null) { // Display a loading screen if loggedIn is null
-    return <div>Loading...</div>;
+    return (
+      <div className="loading-spinner">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   return (

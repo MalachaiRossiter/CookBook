@@ -12,7 +12,7 @@ const CreateRecipe = (props) => {
     const [errors, setErrors] = useState([]);
 
     const createRecipe = (formData) => {
-    axios.post('http://localhost:8000/api/recipe', formData, 
+    axios.post('/api/recipe', formData, 
     {withCredentials: true,headers: { 'Content-Type': 'multipart/form-data' }})
     .then((res) => {
         console.log(res.data);

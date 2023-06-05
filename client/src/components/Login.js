@@ -34,7 +34,7 @@ const Login = (props) => {
     }
 
     return(
-        <div className='container'>
+        <div className='container-login'>
             <div className='row'>
                 <div className='column1-4'>
                     <div className='form-container'>
